@@ -4,8 +4,8 @@ from config import Config
 from controllers.user_controller import UserController
 from controllers.task_controller import TaskController
 from models import db
-from models.user import User
-from models.task import Task
+
+
 
 app = Flask(__name__, template_folder=os.path.join('view', 'templates'))
 app.config.from_object(Config)
@@ -15,7 +15,11 @@ db.init_app(app)
 
 # cria tabelas
 with app.app_context():
-    db.create_all()
+    from models.user import User
+    from models.task import Task
+    db.drop_all()   # só para garantir que o banco antigo não atrapalhe
+    db.create_all() # cria todas as tabelas
+    
 
 # forma alternativa de criar rotas, parâmetros: rota em si, endpoint interno do flask e função a ser executada quando a URL for acessada
 app.add_url_rule('/', view_func=UserController.index, endpoint='index')

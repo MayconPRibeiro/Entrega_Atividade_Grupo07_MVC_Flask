@@ -1,15 +1,16 @@
 from models import db
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+from models.user import User
 
 class Task(db.Model):
     __tablename__ = "tasks"
 
-    id = db.colum(db.Integer, primary_key=True)
-    title = db.colum(db.String(100), nullable=False)
-    description = db.colum(db.String(100), nullable=False)
-    user_id = db.colum(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    status = db.colum(db.String(100), nullable=False, default="Pendente")
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(100), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    status = db.Column(db.String(100), nullable=False, default="Pendente")
 
 
     user = db.relationship("User", back_populates="tasks")
