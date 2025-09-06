@@ -14,7 +14,7 @@ class TaskController:
 
     @staticmethod
     def create_task():
-        
+        '''TAREFA 100% REALIZADA'''
         if request.method == "POST":
             # TODO capturar dados do formulário (title, description, user_id)
             title = request.form['title']
@@ -23,13 +23,16 @@ class TaskController:
 
 
             # TODO criar um novo objeto Task com os dados capturados
+            new_task = Task(title=title, description=description, user_id=user_id)
+
             # TODO adicionar no db.session e dar commit
-            pass
+            db.session.add(new_task)
+            db.session.commit()
 
             return redirect(url_for("list_tasks"))
 
         # TODO buscar todos os usuários para exibir no <select> do formulário
-        users = None
+        users = User.query.all()
         return render_template("create_task.html", users=users)
     
     @staticmethod
