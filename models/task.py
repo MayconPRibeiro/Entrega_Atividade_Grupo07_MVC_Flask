@@ -13,7 +13,7 @@ class Task(db.Model):
     status = db.Column(db.String(100), nullable=False, default="Pendente")
 
 
-    user = db.relationship("User", back_populates="tasks")
+    user = db.relationship("User", back_populates="Tasks")
 
     '''
     TAREFA REALIZADA 100%
