@@ -37,17 +37,28 @@ class TaskController:
     
     @staticmethod
     def update_task_status(task_id):
+
+        task = Task.query.get(task_id)
+        if task:
+            if task.status == "Pendente":
+                task.status = "Concluído"
+            else:
+                task.status = "Pendente"
+
+        db.session.commit()
         # TODO buscar a tarefa pelo id
         # TODO: se existir, alternar status entre "Pendente" e "Concluído" e dar commit na alteração
-        pass 
 
         return redirect(url_for("list_tasks"))
 
     @staticmethod
     def delete_task(task_id):
-        
+        task = Task.query.get(task_id)
+
+        if task:
+            db.session.delete(task)
+            db.session.commit()          
         # TODO buscar a tarefa pelo id
         # TODO: se ela existir, remover do db.session e dar commit
-        pass 
     
         return redirect(url_for("list_tasks"))
